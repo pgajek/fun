@@ -1,6 +1,5 @@
 import http from "http";
 import { config } from "./config.js";
-// import fetch from "node-fetch";
 import axios from "axios";
 
 const server = http.createServer((req, res) => {
@@ -32,7 +31,18 @@ const fetchHistoricalTrades = async (symbol) => {
   }
 };
 
-await fetchHistoricalTrades("ETHBTC");
+console.log(await fetchHistoricalTrades("ETHBTC"));
+
+const analyzeTrades = async (
+  trades,
+  startDateMiliSeconds,
+  endDateMiliSeconds
+) => {
+  const chosenDateRange = trades.filter(
+    (trade) =>
+      startDateMiliSeconds <= trade.time && trade.time >= endDateMiliSeconds
+  );
+};
 
 server.listen(config.port, () => {
   console.log(`Server listening on port: ${config.port}`);
